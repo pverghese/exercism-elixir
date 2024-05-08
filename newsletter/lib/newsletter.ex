@@ -21,11 +21,7 @@ defmodule Newsletter do
     emails = read_emails(emails_path)
     pid = open_log(log_path)
     emails
-    |> Enum.map(fn x ->
-      if send_fun.(x) == :ok do
-        log_sent_email(pid, x)
-      end
-    end)
+    |> Enum.map(& if send_fun.(&1) == :ok, do: log_sent_email(pid, &1))
     close_log(pid)
   end
 end
