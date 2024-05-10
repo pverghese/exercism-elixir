@@ -30,8 +30,10 @@ defmodule DancingDots.Zoom do
   @impl DancingDots.Animation
   def init(opts) do
     velocity = opts[:velocity]
+
     if !is_number(velocity) do
-      {:error, "The :velocity option is required, and its value must be a number. Got: #{inspect(velocity)}"}
+      {:error,
+       "The :velocity option is required, and its value must be a number. Got: #{inspect(velocity)}"}
     else
       {:ok, opts}
     end
@@ -39,7 +41,6 @@ defmodule DancingDots.Zoom do
 
   @impl DancingDots.Animation
   def handle_frame(dot, frame_number, opts) do
-    %{dot| radius: dot.radius + (frame_number - 1) * opts[:velocity]}
-
+    %{dot | radius: dot.radius + (frame_number - 1) * opts[:velocity]}
   end
 end
